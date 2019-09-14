@@ -1,26 +1,25 @@
-let request = require('request');
-const http = require("http");
-const url = require("url");
 const port = process.env.PORT || 2000;
 const jsdom = require("jsdom");
+const request = require('request');
+const express = require('express')
+const app = express()
 
-http.createServer(function (req, res) {
-    const urlStr = req.url.substring(1);
-	console.log("Server running on port " + port);
-	console.log(`Reqest to: ${urlStr}`);
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function (req, res) {
 
-    request({uri: urlStr}, function(error, response, body){
-        if(!error && response.statusCode == 200){
-            const {JSDOM} = jsdom;
-            const dom = new JSDOM(body);
+  request({uri: req.query.url}, function(error, response, body){
+    if(!error && response.statusCode == 200){
+        const {JSDOM} = jsdom;
+        const dom = new JSDOM(body);
 
-            var userId = dom.window.document.getElementById('user-id').value;
-            console.log(userId);
-//            res.write(userId);
-            res.end(userId);
-        }
-    });
-
-}).listen(port, '127.0.0.1', ()=> {
-    console.log("server running");
+        var userId = dom.window.document.getElementById('user-id').value;
+        res.send(userId);
+    } else {
+        res.send("Error obtaining userId");
+    }
 });
+
+})
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
