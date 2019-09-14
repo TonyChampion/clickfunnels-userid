@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
         var userId = dom.window.document.getElementById('user-id').value;
         res.send(userId);
     } else {
-        res.send("Error obtaining userId");
+        res.send(error);
     }
 });
 
