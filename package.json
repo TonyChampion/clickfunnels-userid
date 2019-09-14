@@ -1,0 +1,14 @@
+{
+  "name": "cf-userid",
+  "version": "1.0.0",
+  "description": "Server used to pull user-id from CF funnel",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^15.1.1"
+  }
+}
