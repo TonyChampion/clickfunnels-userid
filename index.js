@@ -19,8 +19,12 @@ app.get('/', function (req, res) {
         const {JSDOM} = jsdom;
         const dom = new JSDOM(body);
 
-        const userId = dom.window.document.getElementById('user-id').value;
-        ret.userId = userId;
+        const userId = dom.window.document.getElementById('user-id');
+        if(userId) {
+            ret.userId = userId;
+        } else {
+            ret.userId = 'not found';
+        }
     } 
 
     res.send(JSON.stringify(ret));
